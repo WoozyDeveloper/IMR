@@ -9,6 +9,7 @@ public class Cactus : MonoBehaviour
         Debug.Log("intru??");
         if (collision.gameObject.tag == "cactus")
         {
+            this.transform.LookAt(collision.gameObject.transform);
             this.GetComponentInParent<Animator>().Play("Attack");
             Debug.Log("Ne batem sau nu???");
         }

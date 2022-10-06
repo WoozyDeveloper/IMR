@@ -12,6 +12,7 @@ public class script : MonoBehaviour
 
     public GameObject model;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,31 +23,12 @@ public class script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(MyCoroutine());
-        
-    }
-
-    IEnumerator MyCoroutine()
-    {
-        
         Touch touch = Input.GetTouch(0);
-
-        if (raycastManager.Raycast(touch.position, hits))
+        if (Input.GetMouseButtonDown(0) && raycastManager.Raycast(touch.position, hits))
         {
             Pose pose = hits[0].pose;
             Instantiate(model, pose.position, Quaternion.Euler(.0f, .0f, .0f));
-            yield return new WaitForSeconds(2);
         }
     }
 
-   /* bool isPointerOverUIObject(Vector2 pos)
-    {
-        if (EventSystem.current == null)
-            return false;
-        PointerEventData data = new PointerEventData(EventSystem.current);
-        data.position = new Vector2(pos.x, pos.y);
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(data, results);
-        return results.Count > 0;
-    }*/
 }
