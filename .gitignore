@@ -22,6 +22,21 @@
 /IMR1/[Ll]ogs/
 /IMR1/[Mm]emoryCaptures/
 
+
+/tema2/[Ll]ibrary/
+/tema2/obj
+/tema2/Packages
+/tema2/ProjectSettings
+/tema2/Temp
+/tema2/UserSettings
+/tema2/Logs
+/tema2/[Tt]emp/
+/tema2/[Oo]bj/
+/tema2/[Bb]uild/
+/tema2/[Bb]uilds/
+/tema2/[Ll]ogs/
+/tema2/[Mm]emoryCaptures/
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 
 !/[Aa]ssets/\*_/_.meta
