@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Target_Script : MonoBehaviour
 {
     [SerializeField] private GameObject target;
+    [SerializeField] private TextMeshProUGUI scoreText;
+
     public bool targetHit;
     public bool inAir;
     public float score;
+    private int totalScore;
 
     private Vector3 startingPos, finalPos;
     // Start is called before the first frame update
@@ -16,6 +20,9 @@ public class Target_Script : MonoBehaviour
         targetHit = false;
         inAir = false;
         score = 0;
+        totalScore = 0;
+
+        scoreText = FindObjectOfType<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -33,16 +40,25 @@ public class Target_Script : MonoBehaviour
         if(targetHit)
         {
             score = (int)Mathf.Abs(target.transform.position.z - startingPos.z) * 10;
-            Debug.Log("SCORE = " + score);
             targetHit = false;
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "target")
+        if (collision.gameObject.tag == "center_target")
+        {
+            Debug.Log("Center target HIT!!!");
+            score = 100;
+            totalScore += (int)score;
+            scoreText.text = "Score: " + totalScore.ToString();
+            Debug.Log("SCORE = " + score);
+        }
+        else if (collision.gameObject.tag == "target")
         {
             Debug.Log("TAGERGET HIT");
+            totalScore += (int)score;
+            scoreText.text = "Score: " + totalScore.ToString();
             score = 0;
             targetHit = true;
             inAir = false;
@@ -61,6 +77,7 @@ public class Target_Script : MonoBehaviour
             targetHit = false;
             inAir = false;
         }
+        
     }
     private void OnCollisionExit(Collision collision)
     {
