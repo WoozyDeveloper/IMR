@@ -17,6 +17,8 @@ public class Target_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.GetComponent<ParticleSystem>().Stop();
+
         targetHit = false;
         inAir = false;
         score = 0;
@@ -41,6 +43,13 @@ public class Target_Script : MonoBehaviour
         {
             score = (int)Mathf.Abs(target.transform.position.z - startingPos.z) * 10;
             targetHit = false;
+
+            gameObject.GetComponent<ParticleSystem>().Play();
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+        else
+        {
+            GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 
@@ -50,15 +59,18 @@ public class Target_Script : MonoBehaviour
         {
             Debug.Log("Center target HIT!!!");
             score = 100;
-            totalScore += (int)score;
-            scoreText.text = "Score: " + totalScore.ToString();
+            totalScore = int.Parse(scoreText.text) + (int)score;
+            scoreText.text = totalScore.ToString();
             Debug.Log("SCORE = " + score);
+
+            targetHit = true;
+            inAir = false;
         }
         else if (collision.gameObject.tag == "target")
         {
             Debug.Log("TAGERGET HIT");
-            totalScore += (int)score;
-            scoreText.text = "Score: " + totalScore.ToString();
+            totalScore += int.Parse(scoreText.text) + (int)score; ;
+            scoreText.text = totalScore.ToString();
             score = 0;
             targetHit = true;
             inAir = false;
