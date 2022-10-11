@@ -42,15 +42,18 @@ public class Target_Script : MonoBehaviour
         if(targetHit)
         {
             score = (int)Mathf.Abs(target.transform.position.z - startingPos.z) * 10;
+            Debug.Log("Should add " + score);
+            totalScore += int.Parse(scoreText.text) + (int)score;
+            scoreText.text = totalScore.ToString();
+            score = 0;
+
+
             targetHit = false;
 
             gameObject.GetComponent<ParticleSystem>().Play();
             GetComponent<Rigidbody>().isKinematic = true;
         }
-        else
-        {
-            GetComponent<Rigidbody>().isKinematic = false;
-        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -62,16 +65,14 @@ public class Target_Script : MonoBehaviour
             totalScore = int.Parse(scoreText.text) + (int)score;
             scoreText.text = totalScore.ToString();
             Debug.Log("SCORE = " + score);
-
+            score = 0;
             targetHit = true;
             inAir = false;
         }
-        else if (collision.gameObject.tag == "target")
+        if (collision.gameObject.tag == "target")
         {
-            Debug.Log("TAGERGET HIT");
-            totalScore += int.Parse(scoreText.text) + (int)score; ;
-            scoreText.text = totalScore.ToString();
-            score = 0;
+            Debug.Log("TAGERGET HIT SIMPLE SCORE ADDED");
+            
             targetHit = true;
             inAir = false;
         }
