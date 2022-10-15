@@ -8,9 +8,9 @@ public class Target_Script : MonoBehaviour
     [SerializeField] private GameObject target;
     [SerializeField] private TextMeshProUGUI scoreText;
 
-    public bool targetHit;
-    public bool inAir;
-    public float score;
+    private bool targetHit;
+    private bool inAir;
+    private float score;
     private int totalScore;
 
     private Vector3 startingPos, finalPos;
