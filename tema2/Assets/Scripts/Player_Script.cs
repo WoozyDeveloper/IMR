@@ -6,17 +6,38 @@ public class Player_Script : MonoBehaviour
 {
     [SerializeField] private GameObject hand;
     [SerializeField] private Animator animator;
+    private bool in_hand;
 
     private void Start()
     {
+        in_hand = false;
+    }
+
+    private void Update()
+    {
+        if(in_hand == true)
+        {
+            animator.Play("hold");
+        }
+        else
+        {
+            animator.Play("drop");
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "arrow")
         {
-            animator.Play("Armature_ArmatureAction_001");
-            Debug.Log("Ar trebui sa dea play la animatie");
+            in_hand = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "arrow")
+        {
+            in_hand = false;
         }
     }
 }
